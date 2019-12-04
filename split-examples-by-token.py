@@ -64,7 +64,7 @@ if not os.path.isfile(args.input):
     raise Exception("Input file not found!")
 
 logger.info("Loading dialogue corpus")
-data = cPickle.load(open(args.input, 'r'))
+data = cPickle.load(open(args.input, 'rb'))
 data_len = len(data)
 
 logger.info('Corpus loaded... Data len is %d' % data_len)

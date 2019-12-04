@@ -111,7 +111,7 @@ if not os.path.isfile(args.embedding_dictionary):
 
 
 # Load model dictionary
-model_dict = cPickle.load(open(args.model_dictionary, 'r'))
+model_dict = cPickle.load(open(args.model_dictionary, 'rb'))
 
 str_to_idx = dict([(tok, tok_id) for tok, tok_id, _, _ in model_dict])
 i_dim = len(str_to_idx.keys())

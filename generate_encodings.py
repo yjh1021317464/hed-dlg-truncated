@@ -238,7 +238,7 @@ def get_all_encodings(model, encoding_func, sentenceDict, max_length, nb_sent_ba
         #print "end", encodingDict[keys][0,1950:]
 
     print "----> Dummping the encodings..."
-    cPickle.dump(encodingDict, open(outputName + ".pkl", "w"))
+    cPickle.dump(encodingDict, open(outputName + ".pkl", "wb"))
     print "\tL----> Done."
 
     return encodingDict
@@ -254,7 +254,7 @@ def init(path):
     state_path   = path  + "_state.pkl"
     model_path   = path  + "_model.npz"
     
-    with open(state_path) as src:
+    with open(state_path, "rb") as src:
         state.update(cPickle.load(src))
     
     logging.basicConfig(level=getattr(logging, state['level']), format="%(asctime)s: %(name)s: %(levelname)s: %(message)s")

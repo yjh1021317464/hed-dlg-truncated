@@ -65,8 +65,9 @@ def save(model, timings, post_fix = ''):
     start = time.time()
     s = signal.signal(signal.SIGINT, signal.SIG_IGN)
     
+    os.makedirs(model.state['save_dir'])
     model.save(model.state['save_dir'] + '/' + model.state['run_id'] + "_" + model.state['prefix'] + post_fix + 'model.npz')
-    cPickle.dump(model.state, open(model.state['save_dir'] + '/' +  model.state['run_id'] + "_" + model.state['prefix'] + post_fix + 'state.pkl', 'w'))
+    cPickle.dump(model.state, open(model.state['save_dir'] + '/' +  model.state['run_id'] + "_" + model.state['prefix'] + post_fix + 'state.pkl', 'wb'))
     numpy.savez(model.state['save_dir'] + '/' + model.state['run_id'] + "_" + model.state['prefix'] + post_fix + 'timing.npz', **timings)
     signal.signal(signal.SIGINT, s)
     
@@ -135,7 +136,7 @@ def main(args):
         if os.path.isfile(state_file) and os.path.isfile(timings_file):
             logger.debug("Loading previous state")
             
-            state = cPickle.load(open(state_file, 'r'))
+            state = cPickle.load(open(state_file, 'rb'))
             timings = dict(numpy.load(open(timings_file, 'r')))
             for x, y in timings.items():
                 timings[x] = list(y)

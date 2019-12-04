@@ -1614,7 +1614,7 @@ class DialogEncoderDecoder(Model):
         self.rng = numpy.random.RandomState(state['seed']) 
 
         # Load dictionary
-        raw_dict = cPickle.load(open(self.dictionary, 'r'))
+        raw_dict = cPickle.load(open(self.dictionary, 'rb'))
 
         # Probabilities for each term in the corpus used for noise contrastive estimation (NCE)
         self.noise_probs = [x[2] for x in sorted(raw_dict, key=operator.itemgetter(1))]
@@ -1674,7 +1674,7 @@ class DialogEncoderDecoder(Model):
         if self.initialize_from_pretrained_word_embeddings == True:
             # Load pretrained word embeddings from pickled file
             logger.debug("Loading pretrained word embeddings")
-            pretrained_embeddings = cPickle.load(open(self.pretrained_word_embeddings_file, 'r'))
+            pretrained_embeddings = cPickle.load(open(self.pretrained_word_embeddings_file, 'rb'))
 
             # Check all dimensions match from the pretrained embeddings
             assert(self.idim == pretrained_embeddings[0].shape[0])

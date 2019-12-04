@@ -47,7 +47,7 @@ unk = "<unk>"
 if args.dict != "":
     # Load external dictionary
     assert os.path.isfile(args.dict)
-    vocab = dict([(x[0], x[1]) for x in cPickle.load(open(args.dict, "r"))])
+    vocab = dict([(x[0], x[1]) for x in cPickle.load(open(args.dict, "rb"))])
     
     # Check consistency
     assert '<unk>' in vocab

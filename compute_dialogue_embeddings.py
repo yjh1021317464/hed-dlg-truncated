@@ -109,7 +109,7 @@ def main():
     state_path = args.model_prefix + "_state.pkl"
     model_path = args.model_prefix + "_model.npz"
 
-    with open(state_path) as src:
+    with open(state_path, "rb") as src:
         state.update(cPickle.load(src))
 
     logging.basicConfig(level=getattr(logging, state['level']), format="%(asctime)s: %(name)s: %(levelname)s: %(message)s")
@@ -172,7 +172,7 @@ def main():
             dialogue_encodings.append(encs[i])
 
     # Save encodings to disc
-    cPickle.dump(dialogue_encodings, open(args.output + '.pkl', 'w'))
+    cPickle.dump(dialogue_encodings, open(args.output + '.pkl', 'wb'))
 
 if __name__ == "__main__":
     main()

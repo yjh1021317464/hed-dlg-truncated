@@ -1,6 +1,7 @@
 import logging
 import numpy
 import theano
+import os
 logger = logging.getLogger(__name__)
 
 # This is the list of strings required to ignore, if we're going to take a pretrained HRED model 
@@ -19,6 +20,7 @@ class Model(object):
         Save the model to file `filename`
         """
         vals = dict([(x.name, x.get_value()) for x in self.params])
+        os.makedirs(os.path.split(filename)[0])
         numpy.savez(filename, **vals)
 
     def load(self, filename, parameter_strings_to_ignore=[]):

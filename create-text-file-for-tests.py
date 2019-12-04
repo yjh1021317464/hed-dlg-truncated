@@ -75,13 +75,13 @@ def main():
     # Load state file
     state = prototype_state()
     state_path = args.model_prefix + "_state.pkl"
-    with open(state_path) as src:
+    with open(state_path, "rb") as src:
         state.update(cPickle.load(src))
 
     # Load dictionary
 
     # Load dictionaries to convert str to idx and vice-versa
-    raw_dict = cPickle.load(open(state['dictionary'], 'r'))
+    raw_dict = cPickle.load(open(state['dictionary'], 'rb'))
 
     str_to_idx = dict([(tok, tok_id) for tok, tok_id, _, _ in raw_dict])
     idx_to_str = dict([(tok_id, tok) for tok, tok_id, freq, _ in raw_dict])
@@ -95,7 +95,7 @@ def main():
 
     # Is it a pickle file? Then process using model dictionaries..
     if args.test_file[len(args.test_file)-4:len(args.test_file)] == '.pkl':
-        test_dialogues = cPickle.load(open(args.test_file, 'r'))
+        test_dialogues = cPickle.load(open(args.test_file, 'rb'))
         for test_dialogueid,test_dialogue in enumerate(test_dialogues):
             if test_dialogueid % 100 == 0:
                 print 'test_dialogue', test_dialogueid

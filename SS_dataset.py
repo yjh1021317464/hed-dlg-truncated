@@ -78,7 +78,7 @@ class SSIterator(object):
         self.exit_flag = False
 
     def load_files(self):
-        self.data = cPickle.load(open(self.dialogue_file, 'r'))
+        self.data = cPickle.load(open(self.dialogue_file, 'rb'))
         self.data_len = len(self.data)
         logger.debug('Data len is %d' % self.data_len)
 
