@@ -64,6 +64,9 @@ def save(model, timings, post_fix = ''):
     # ignore keyboard interrupt while saving
     start = time.time()
     s = signal.signal(signal.SIGINT, signal.SIG_IGN)
+
+    if not os.path.exists(model.state['save_dir']):
+        os.makedirs(model.state['save_dir'])
     
     os.makedirs(model.state['save_dir'])
     model.save(model.state['save_dir'] + '/' + model.state['run_id'] + "_" + model.state['prefix'] + post_fix + 'model.npz')
@@ -137,7 +140,7 @@ def main(args):
             logger.debug("Loading previous state")
             
             state = cPickle.load(open(state_file, 'rb'))
-            timings = dict(numpy.load(open(timings_file, 'r')))
+            timings = dict(numpy.load(open(timings_file, 'rb')))
             for x, y in timings.items():
                 timings[x] = list(y)
 
